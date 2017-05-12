@@ -11,7 +11,7 @@ import org.apache.solr.common.params.ModifiableSolrParams;
 import org.apache.solr.core.CoreContainer;
 
 /**
- * Created by fishercoder on 2/28/17.
+ * Created by stevesun on 5/11/17.
  */
 public class Indexer {
     private static final String SOLR_HOME = "/Users/fishercoder/code/playground/hbasemr/solr_home";

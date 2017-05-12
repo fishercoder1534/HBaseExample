@@ -1,0 +1,56 @@
+group 'fishercoder'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+sourceCompatibility = 1.8
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.fishercoder.hbasemr.DataImporter'
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "http://maven.restlet.com"
+    }
+}
+
+configurations {
+    compile
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    // https://mvnrepository.com/artifact/org.apache.hbase/hbase
+    compile group: 'org.apache.hbase', name: 'hbase-client', version: '1.3.0'
+    compile group: 'org.apache.hbase', name: 'hbase-server', version: '1.2.2'
+    // compile group: 'org.apache.hadoop', name: 'hadoop-common', version: '2.7.3'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.24'
+
+    compile "org.apache.solr:solr-solrj:4.10.3"
+    compile "org.apache.solr:solr-core:4.10.3"
+    //compile "org.apache.solr:solr-solrj:6.4.1"
+
+    // https://mvnrepository.com/artifact/org.restlet.jee/org.restlet
+    compile group: 'org.restlet.jee', name: 'org.restlet', version: '2.1.1'
+}
+
+
+def jarName = 'hbasemr'
+
+shadowJar {
+    baseName = "${jarName}"
+    zip64 true
+    // This is super important as Solr relies on service descriptor files to discover different
+    // Tokenizers etc.
+    mergeServiceFiles()
+}
+
+jar {
+    baseName "${jarName}"
+}

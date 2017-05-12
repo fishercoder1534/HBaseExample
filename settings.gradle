@@ -1,0 +1,12 @@
+// Setting up the root projects.
+
+// This will automatically find all gradle subprojects. Let's see how it works in the longer term.
+// Alternatively we can also add individual subprojects.
+fileTree('.') {
+	include '**/build.gradle'
+	exclude 'build.gradle' // Exclude the root build file.
+}.collect {
+	relativePath(it.parent).replace(File.separator, ':')
+}.each {
+	include(it)
+}

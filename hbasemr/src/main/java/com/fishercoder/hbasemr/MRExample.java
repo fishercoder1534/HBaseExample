@@ -19,6 +19,8 @@ import java.util.Calendar;
 
 
 public class MRExample {
+    private static final String TABLE_NAME = "access_logs1";
+
     public MRExample() {
     }
 
@@ -64,7 +66,7 @@ public class MRExample {
             System.out.println("In here.");
             // Setup Hadoop
             Configuration conf = HBaseConfiguration.create();
-            Job job = Job.getInstance(conf, "access_logs");
+            Job job = Job.getInstance(conf, TABLE_NAME);
             job.setJarByClass(MRExample.class);
 
             // Create a scan
@@ -72,7 +74,7 @@ public class MRExample {
 
             // Configure the Map process to use HBase
             TableMapReduceUtil.initTableMapperJob(
-                "access_logs",              // The name of the table
+                TABLE_NAME,              // The name of the table
                 scan,                           // The scan to execute against the table
                 MyMapper.class,                 // The Mapper class
                 LongWritable.class,             // The Mapper output key class

@@ -14,7 +14,7 @@ import org.apache.solr.core.CoreContainer;
  * Created by stevesun on 5/11/17.
  */
 public class Indexer {
-    private static final String SOLR_HOME = "/Users/fishercoder/code/playground/hbasemr/solr_home";
+    private static final String SOLR_HOME = "/Users/stevesun/code/playground/hbasemr/solr_home";
 
     private static void index() throws Exception {
         CoreContainer coreContainer = new CoreContainer(SOLR_HOME);

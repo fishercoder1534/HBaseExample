@@ -23,7 +23,7 @@ public class DataImporter {
         Configuration config = HBaseConfiguration.create();
         config.set("hbase.master", "localhost:60000");
         Connection conn = ConnectionFactory.createConnection(config);
-        Table htable = conn.getTable(TableName.valueOf("access_logs"));
+        Table htable = conn.getTable(TableName.valueOf("access_logs1"));
 
         int totalRecords = 100;
         int maxID = totalRecords / 10;

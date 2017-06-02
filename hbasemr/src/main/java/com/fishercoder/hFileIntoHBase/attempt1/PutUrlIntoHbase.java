@@ -1,4 +1,4 @@
-package com.fishercoder.hFileIntoHBase;
+package com.fishercoder.hFileIntoHBase.attempt1;
 
 /**
  * Created by stevesun on 6/1/17.
@@ -30,9 +30,9 @@ public class PutUrlIntoHbase extends Configured implements Tool {
      at org.apache.hadoop.hbase.mapreduce.HFileOutputFormat2.configureIncrementalLoad(HFileOutputFormat2.java:440)
      at org.apache.hadoop.hbase.mapreduce.HFileOutputFormat2.configureIncrementalLoad(HFileOutputFormat2.java:405)
      at org.apache.hadoop.hbase.mapreduce.HFileOutputFormat2.configureIncrementalLoad(HFileOutputFormat2.java:367)
-     at com.fishercoder.hFileIntoHBase.PutUrlIntoHbase.run(PutUrlIntoHbase.java:41)
+     at com.fishercoder.hFileIntoHBase.attempt1.PutUrlIntoHbase.run(PutUrlIntoHbase.java:41)
      at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:70)
-     at com.fishercoder.hFileIntoHBase.PutUrlIntoHbase.main(PutUrlIntoHbase.java:51)
+     at com.fishercoder.hFileIntoHBase.attempt1.PutUrlIntoHbase.main(PutUrlIntoHbase.java:51)
 
      I asked on Stackoverflow: https://stackoverflow.com/questions/44318693/java-io-ioexception-mkdirs-failed-to-create-when-running-mapreduce-job
      no answers yet.*/

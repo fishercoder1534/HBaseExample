@@ -9,8 +9,9 @@ sourceCompatibility = 1.8
 jar {
     manifest {
 //        attributes 'Main-Class': 'com.fishercoder.hbasemr.DataImporter'
-        attributes 'Main-Class': 'com.fishercoder.hbasemr.MRExample'
-        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.PutUrlIntoHbase'
+//        attributes 'Main-Class': 'com.fishercoder.hbasemr.MRExample'
+//        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.attempt1.PutUrlIntoHbase'
+        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.attempt2.LoadDataCreater'
     }
 }
 

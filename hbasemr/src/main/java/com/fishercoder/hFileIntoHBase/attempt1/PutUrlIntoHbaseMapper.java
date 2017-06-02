@@ -1,4 +1,4 @@
-package com.fishercoder.hFileIntoHBase;
+package com.fishercoder.hFileIntoHBase.attempt1;
 
 /**
  * Created by stevesun on 6/1/17.

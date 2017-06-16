@@ -16,7 +16,10 @@ import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
 public class PutUrlIntoHbase extends Configured implements Tool {
-    /**This program isn't working yet, it's giving me this error:
+    /**
+     * Run it on Cluster, it might be working fine.
+     *
+     * This program isn't working yet, it's giving me this error:
      * Exception in thread "main" java.io.IOException: Mkdirs failed to create /user/stevesun/hbase-staging (exists=false, cwd=file:/Users/stevesun/personal_dev/HBaseMapReduceExample/hbasemr)
      at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:440)
      at org.apache.hadoop.fs.ChecksumFileSystem.create(ChecksumFileSystem.java:426)
@@ -45,8 +48,12 @@ public class PutUrlIntoHbase extends Configured implements Tool {
         Configuration conf = new Configuration();
         conf.set(MAPRED_JOB_NAME, "steve_test");
         conf.set(HBASE_TABLE, "steve1");
-        Job job = new Job(conf, conf.get(MAPRED_JOB_NAME));
+//        conf.set("hbase.master", "10.211.126.103:60000");
+        conf.set("hbase.master", "localhost:60000");
+//        conf.set("hbase.zookeeper.quorum", "10.211.126.103");
+        Job job = Job.getInstance(conf, conf.get(MAPRED_JOB_NAME));
         String output_table = conf.get(HBASE_TABLE);
+        System.out.println("output_table = " + output_table);
 
         job.setJarByClass(PutUrlIntoHbase.class);
         job.setMapperClass(PutUrlIntoHbaseMapper.class);
@@ -57,7 +64,9 @@ public class PutUrlIntoHbase extends Configured implements Tool {
 
         HTable table = new HTable(conf, output_table);
         job.setOutputFormatClass(HFileOutputFormat2.class);
+        System.out.println("job is set...");
         HFileOutputFormat2.configureIncrementalLoad(job, table);
+        System.out.println("load configured...");
 
         if (job.waitForCompletion(true) && job.isSuccessful()) {
             return 0;

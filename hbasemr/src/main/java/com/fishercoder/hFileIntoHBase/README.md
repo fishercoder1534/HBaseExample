@@ -54,6 +54,8 @@ It's very likely due to your data is skewed, you'll want to properly pre-split y
 the HFiles, each HFile will just be loaded onto that region, no HFile split is going to happen. (Splitting HFiles could be extremely time-consumingm, this
 is why estimate your data size, pre-split your HBase table and do good partitioning is super important if you care about speed.) 
 
+
 Reference: 
 http://www.opencore.com/blog/2016/10/efficient-bulk-load-of-hbase-using-spark/
+
 http://blog.cloudera.com/blog/2015/06/how-to-scan-salted-apache-hbase-tables-with-region-specific-key-ranges-in-mapreduce/

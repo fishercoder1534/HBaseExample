@@ -11,7 +11,11 @@ jar {
 //        attributes 'Main-Class': 'com.fishercoder.hbasemr.DataImporter'
 //        attributes 'Main-Class': 'com.fishercoder.hbasemr.MRExample'
 //        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.attempt1.PutUrlIntoHbase'
-        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.attempt2.LoadDataCreater'
+//        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.attempt2.LoadDataCreater'
+//        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.attempt3.HBaseTemperatureBulkImporter'
+//        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.attempt4.ConvertToHFiles'
+//        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.attempt5.HFileGenerator'
+        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.workingSolution.HFileGenerator'
     }
 }
 
@@ -45,8 +49,15 @@ dependencies {
 //    compile group: 'org.apache.hadoop', name: 'hadoop-core', version: '1.2.1'
 //    compile group: 'org.apache.hadoop', name: 'hadoop-common', version: '2.7.2'
 //    compile group: 'org.apache.hadoop', name: 'hadoop-client', version: '2.8.0'
+
+    compile group: 'org.apache.spark', name: 'spark-core_2.11', version: '2.0.2'
+    compile group: 'org.apache.spark', name: 'spark-sql_2.11', version: '2.0.2'
+    compile group: 'org.apache.spark', name: 'spark-hive_2.11', version: '2.0.2'
+
+    compile group: 'com.beust', name: 'jcommander', version: '1.64'
 }
 
+apply plugin: 'com.github.johnrengelman.shadow'
 
 def jarName = 'hbasemr'
 

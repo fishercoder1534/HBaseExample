@@ -1,4 +1,4 @@
-package com.fishercoder.hFileIntoHBase.workingSolution;
+package com.fishercoder.hFileIntoHBase.sparkSolution;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;

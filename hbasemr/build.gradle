@@ -15,7 +15,8 @@ jar {
 //        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.attempt3.HBaseTemperatureBulkImporter'
 //        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.attempt4.ConvertToHFiles'
 //        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.attempt5.HFileGenerator'
-        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.sparkSolution.HFileGenerator'
+//        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.sparkSolution.HFileGenerator'
+        attributes 'Main-Class': 'com.fishercoder.hFileIntoHBase.mapreduceSolution.HFileImporter'
     }
 }
 

@@ -47,7 +47,7 @@ public class HFileGenerator implements Serializable {
 
     private static final String TEXTFILE_PATH = "/fishercoder/"
             + new Random().nextInt(1000000);
-    public static final String HBASE_ZOOKEEPER_QUORUM = "hbase.zookeeper.quorum";
+    private static final String HBASE_ZOOKEEPER_QUORUM = "hbase.zookeeper.quorum";
     private static final String APP_NAME = "FisherCoder-HFile-Generator";
 
     private static Map<String, String> JSON_HISTORY_S3_PATHS =
@@ -248,7 +248,7 @@ public class HFileGenerator implements Serializable {
         System.out.println("Finished saveAsTextFile to: " + TEXTFILE_PATH);
     }
 
-    protected JavaRDD<Row> readJsonTable() {
+    public JavaRDD<Row> readJsonTable() {
         SparkSession.Builder builder = SparkSession.builder().appName(APP_NAME);
         if (HFileGeneratorParams.local) {
             builder.master("local");

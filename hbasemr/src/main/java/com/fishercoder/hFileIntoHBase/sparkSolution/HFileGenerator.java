@@ -18,6 +18,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.spark.Partitioner;
+import org.apache.spark.SparkConf;
 import org.apache.spark.SparkContext;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
@@ -254,6 +255,11 @@ public class HFileGenerator implements Serializable {
             builder.master("local");
         }
 
+        builder.config("spark.serializer", "org.apache.spark.serializer.KryoSerializer");
+        SparkConf conf = new SparkConf();
+        conf.registerKryoClasses(
+                new Class[]{org.apache.hadoop.hbase.io.ImmutableBytesWritable.class});
+        builder.config(conf);
         SparkSession spark = builder.getOrCreate();
 
         SparkContext sparkContext = spark.sparkContext();

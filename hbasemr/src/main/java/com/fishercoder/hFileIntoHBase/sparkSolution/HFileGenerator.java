@@ -117,7 +117,7 @@ public class HFileGenerator implements Serializable {
     protected void importIntoHBase() throws Exception {
         JavaRDD<Row> rdd = readJsonTable();
         if (HFileGeneratorParams.hfile) {
-            generateHFilesUsingSpark(rdd);
+            hFilesToHBase(rdd);
 //			saveAsTextFile(rdd);
         } else {
             putToHBase(rdd);
@@ -125,7 +125,7 @@ public class HFileGenerator implements Serializable {
 //		sanityCheck();
     }
 
-    protected void generateHFilesUsingSpark(JavaRDD<Row> rdd) throws Exception {
+    protected void hFilesToHBase(JavaRDD<Row> rdd) throws Exception {
         JavaPairRDD<ImmutableBytesWritable, KeyValue> javaPairRdd = rdd.mapToPair(
                 new PairFunction<Row, ImmutableBytesWritable, KeyValue>() {
                     public Tuple2<ImmutableBytesWritable, KeyValue> call(Row row) throws Exception {

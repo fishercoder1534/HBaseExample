@@ -6,12 +6,14 @@ import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FsShell;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.KeyValue;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.HFileOutputFormat2;
+import org.apache.hadoop.hbase.mapreduce.LoadIncrementalHFiles;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.hbase.util.Pair;
 import org.apache.hadoop.mapreduce.Job;
@@ -99,6 +101,10 @@ public class HFileGenerator implements Serializable {
 
         @Parameter(names = { "--dataSourceFormat" }, required = false, description = "The data source format of s3")
         public String dataSourceFormat = "orc";//or "csv", etc.
+
+        @Parameter(names = { "--load" }, required = false, arity = 1,
+                description = "Load hfile onto hbase or not")
+        public boolean load = true;
     }
 
     private HFileGeneratorParams HFileGeneratorParams;
@@ -167,8 +173,32 @@ public class HFileGenerator implements Serializable {
         );
         System.out.println("Saved to HFiles to: " + HFileGeneratorParams.hfilesOutputPath);
 
+        if (HFileGeneratorParams.load) {
+            FsShell shell = new FsShell(conf);
+            try {
+                shell.run(new String[]{"-chmod", "-R", "777", HFileGeneratorParams.hfilesOutputPath});
+            } catch (Exception e) {
+                System.out.println("Couldnt change the file permissions " + e
+                        + " Please run command:"
+                        + "hbase org.apache.hadoop.hbase.mapreduce.LoadIncrementalHFiles "
+                        + HFileGeneratorParams.hfilesOutputPath + " '"
+                        + HFileGeneratorParams.hbaseTargetTable + "'\n"
+                        + " to load generated HFiles into HBase table");
+            }
+            System.out.println("Permissions changed.......");
+            loadHfiles();
+            System.out.println("HFiles are loaded into HBase tables....");
+        }
     }
 
+    protected void loadHfiles() throws Exception {
+        Configuration baseConf = HBaseConfiguration.create();
+        baseConf.set(HBASE_ZOOKEEPER_QUORUM, HFileGeneratorParams.zkQuorum);
+        HTable hTable = new HTable(baseConf, HFileGeneratorParams.hbaseTargetTable);
+        LoadIncrementalHFiles loader = new LoadIncrementalHFiles(baseConf);
+        loader.doBulkLoad(
+                new org.apache.hadoop.fs.Path(HFileGeneratorParams.hfilesOutputPath), hTable);
+    }
 
     public class IntPartitioner extends Partitioner {
         private final int numPartitions;
